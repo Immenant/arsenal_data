@@ -5,13 +5,17 @@
   "scripts": {
     "arsenal": "bun run generate_arsenal.ts",
     "loadouts": "bun run generate_loadouts.ts",
-    "extract": "bun run extract_config.ts"
+    "extract": "bun run extract_config.ts",
+    "format": "biome format",
+    "lint": "biome lint",
+    "check": "biome check"
   },
   "peerDependencies": {
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/bun": "^1.2.21"
+    "@biomejs/biome": "^2.2.6",
+    "@types/bun": "^1.3.0"
   }
 }
