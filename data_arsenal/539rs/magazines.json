@@ -45,6 +45,10 @@
   "ACE_HuntIR_M203",
   "FakeMagazine",
   "Laserbatteries",
+  "Scotts_EMAG_M855A1",
+  "Scotts_EMAG_M855A1_Tracer",
+  "Scotts_EMAG_Magpul_M855A1",
+  "Scotts_EMAG_Magpul_M855A1_Tracer",
   "UGL_FlareCIR_F",
   "UGL_FlareGreen_F",
   "UGL_FlareRed_F",
@@ -116,9 +120,5 @@
   "rhs_mag_m713_Red",
   "rhs_mag_m714_White",
   "rhs_mag_m715_Green",
-  "rhs_mag_m716_yellow",
-  "Scotts_EMAG_M855A1",
-  "Scotts_EMAG_M855A1_Tracer",
-  "Scotts_EMAG_Magpul_M855A1",
-  "Scotts_EMAG_Magpul_M855A1_Tracer"
+  "rhs_mag_m716_yellow"
 ]
