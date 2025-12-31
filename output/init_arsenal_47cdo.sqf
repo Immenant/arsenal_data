@@ -1,4 +1,4 @@
-"Type: 539rs | Last Updated: 2025-12-03";
+"Type: 47cdo | Last Updated: 2025-12-31";
 [this, false] call ace_dragging_fnc_setDraggable;
 [this, false] call ace_dragging_fnc_setCarryable;
 [this,
