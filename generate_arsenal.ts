@@ -210,9 +210,6 @@ if (values.all) {
 		// Generate "all" preset combining all units
 		console.log(`\n=== Processing all units combined ===`);
 		let allData = await loadAllUnitsData(dataPath);
-		if (!values["no-check"]) {
-			printDuplicates(allData);
-		}
 		allData = removeDuplicates(allData);
 		allData = sortData(allData);
 		await writeToFile(allData, "all");
