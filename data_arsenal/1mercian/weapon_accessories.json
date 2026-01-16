@@ -1,4 +1,5 @@
 [
+  "RKSL_Optic_LDS",
   "UK3CB_BAF_BFA_L129",
   "UK3CB_BAF_BFA_L7",
   "UK3CB_BAF_BFA_L85",
@@ -21,5 +22,6 @@
   "UK3CB_underbarrel_acc_grippod_d",
   "UK3CB_underbarrel_acc_grippod_g",
   "UK3CB_underbarrel_acc_grippod_t",
-  "UK3CB_underbarrel_acc_grippod_w"
+  "UK3CB_underbarrel_acc_grippod_w",
+  "rhsusf_acc_su230_mrds"
 ]
