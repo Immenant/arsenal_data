@@ -1,11 +1,13 @@
 [
-  "SCM_G4_uniform",
-  "SCM_G4_RS_uniform",
-  "SCM_G4_RS_Undershirt_soldier",
-  "SCM_G4_T_uniform",
-  "SCM_G4_T_RS_uniform",
-  "SCM_PCU_uniform",
-  "SCM_PCU_NH_uniform",
-  "SCM_Windliner_uniform",
-  "UK3CB_BAF_U_CombatUniform_MTP_Ghillie_RM"
+    "SCM_G4_RS_Undershirt_soldier",
+    "SCM_G4_RS_uniform",
+    "SCM_G4_T_NP_uniform",
+    "SCM_G4_T_RS_NP_uniform",
+    "SCM_G4_T_RS_uniform",
+    "SCM_G4_T_uniform",
+    "SCM_G4_uniform",
+    "SCM_PCU_NH_uniform",
+    "SCM_PCU_uniform",
+    "SCM_Windliner_uniform",
+    "UK3CB_BAF_U_CombatUniform_MTP_Ghillie_RM"
 ]
