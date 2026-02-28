@@ -14,6 +14,9 @@
   "SCM_Virtus_Assaulter_3_D3CRX_S20",
   "SCM_Virtus_Assaulter_3_D3CRX_nostraps",
   "SCM_Virtus_Assaulter_3_D3CRX_nostraps_s20",
+  "SCM_Virtus_Assaulter_5",
+  "SCM_Virtus_Assaulter_5_Dangler",
+  "SCM_Virtus_Assaulter_5_Belt",
   "SCM_Virtus_Leader_1",
   "SCM_Virtus_Leader_1_Belt",
   "SCM_Virtus_Leader_1_Clean",
@@ -35,5 +38,8 @@
   "SCM_Virtus_Support_1",
   "SCM_Virtus_Support_1_Belt",
   "UK3CB_BAF_V_RebreatherB",
-  "UK3CB_BAF_V_Rebreather_PlateB"
+  "UK3CB_BAF_V_Rebreather_PlateB",
+  "SCM_Virtus_Custom_Stone",
+  "SCM_Virtus_Custom_Shelb",
+  "SCM_Virtus_Custom_Pete"
 ]
