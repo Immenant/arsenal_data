@@ -1,12 +1,14 @@
 [
   "ACE_VMH3",
-  "ACE_VMM3",
   "launch_MRAWS_green_rail_F",
+  "rhs_weap_M320",
   "rhsusf_weap_glock17g4",
+  "SCOTTS_L85_GRIP1",
+  "SCOTTS_L85_GRIP2",
+  "Scotts_L85A3",
   "UK3CB_BAF_Javelin_Slung_Tube",
   "UK3CB_BAF_L129A1",
   "UK3CB_BAF_L22A2",
   "UK3CB_BAF_L7A2",
-  "UK3CB_BAF_L85A3",
   "UK3CB_BAF_L85A3_UGL"
 ]
