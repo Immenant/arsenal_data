@@ -1,4 +1,4 @@
-"Type: jac | Last Updated: 2026-05-22";
+"Type: jac | Last Updated: 2026-07-07";
 params ["_Arsenal"];
 [_Arsenal, false] call ace_dragging_fnc_setDraggable;
 [_Arsenal, false] call ace_dragging_fnc_setCarryable;

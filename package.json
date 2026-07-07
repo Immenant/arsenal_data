@@ -4,6 +4,7 @@
   "scripts": {
     "arsenal": "bun run sort-data && bun run format && bun run --bun scripts/generate_arsenal.ts",
     "loadouts": "bun run --bun scripts/generate_loadouts.ts",
+    "gen": "bun run arsenal -a && bun run loadouts",
     "extract": "bun run --bun scripts/extract_config.ts",
     "sort-data": "bun run --bun scripts/sort_data.ts",
     "check": "oxlint --type-aware --type-check && oxfmt --check",
