@@ -116,6 +116,8 @@ async function writeToFile(data: string[], prefix: string): Promise<void> {
   const sqfContentInit = `"Type: ${prefix} | Last Updated: ${formattedDate}";
 [this, false] call ace_dragging_fnc_setDraggable;
 [this, false] call ace_dragging_fnc_setCarryable;
+[this, -1] call ace_cargo_fnc_setSize;
+this enableVehicleCargo false;
 [this,
   ${jsonContent}
 ] call ace_arsenal_fnc_initBox;
@@ -125,6 +127,8 @@ async function writeToFile(data: string[], prefix: string): Promise<void> {
 params ["_Arsenal"];
 [_Arsenal, false] call ace_dragging_fnc_setDraggable;
 [_Arsenal, false] call ace_dragging_fnc_setCarryable;
+[_Arsenal, -1] call ace_cargo_fnc_setSize;
+_Arsenal enableVehicleCargo false;
 [_Arsenal,
   ${jsonContent}
 ] call ace_arsenal_fnc_initBox;`;
