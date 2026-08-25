@@ -1,6 +1,7 @@
-import { mkdir, readdir, stat } from "node:fs/promises";
+import { mkdir, readdir } from "node:fs/promises";
 import * as path from "node:path";
 import { parseArgs } from "node:util";
+import { isClassnameDataFile, parseClassnameData } from "./classname_data.ts";
 
 const repoRoot = path.resolve(import.meta.dir, "..");
 
@@ -11,25 +12,12 @@ function formatError(error: unknown): string {
 async function loadAndCombineData(dataFolder: string): Promise<string[]> {
   const combinedData: string[] = [];
 
-  const jsonFiles = await readdir(dataFolder);
-  for (const entry of jsonFiles) {
-    if (!entry.includes(".json")) continue;
-    const filePath = path.join(dataFolder, entry);
-    const fileExists = await Bun.file(filePath).exists();
-    if (!fileExists) continue;
+  const entries = await readdir(dataFolder, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isFile() || !isClassnameDataFile(entry.name)) continue;
+    const filePath = path.join(dataFolder, entry.name);
     const fileContent = await Bun.file(filePath).text();
-
-    try {
-      const jsonData = JSON.parse(fileContent);
-      if (Array.isArray(jsonData)) {
-        combinedData.push(...jsonData.map(String)); // Ensure items are strings
-      } else {
-        console.error(`Invalid JSON format in file: ${filePath}`);
-      }
-    } catch (error) {
-      console.error(`Error parsing JSON in file: ${filePath}`);
-      console.error(error);
-    }
+    combinedData.push(...parseClassnameData(fileContent, filePath));
   }
 
   return combinedData;
@@ -150,22 +138,6 @@ _Arsenal enableVehicleCargo false;
   }
 }
 
-async function loadAllUnitsData(dataFolder: string): Promise<string[]> {
-  const allData: string[] = [];
-
-  const folders = await readdir(dataFolder);
-  for (const folder of folders) {
-    const folderPath = path.join(dataFolder, folder);
-    const folderStat = await stat(folderPath);
-    if (folderStat.isDirectory()) {
-      const folderData = await loadAndCombineData(folderPath);
-      allData.push(...folderData);
-    }
-  }
-
-  return allData;
-}
-
 const { values } = parseArgs({
   args: Bun.argv,
   options: {
@@ -192,25 +164,26 @@ const resolvedDataPath = path.join(repoRoot, dataPath);
 
 if (values.all) {
   try {
-    const folders = await readdir(resolvedDataPath);
-    for (const folder of folders) {
-      const folderPath = path.join(resolvedDataPath, folder);
-      const folderStat = await stat(folderPath);
-      if (folderStat.isDirectory()) {
-        console.log(`\n=== Processing unit: ${folder} ===`);
-        let data = await loadAndCombineData(folderPath);
-        if (!values["no-check"]) {
-          printDuplicates(data);
-        }
-        data = removeDuplicates(data);
-        data = sortData(data);
-        await writeToFile(data, folder);
+    const folders = (await readdir(resolvedDataPath, { withFileTypes: true })).filter((entry) => entry.isDirectory());
+    const units = await Promise.all(
+      folders.map(async (folder) => ({
+        name: folder.name,
+        data: await loadAndCombineData(path.join(resolvedDataPath, folder.name))
+      }))
+    );
+
+    for (const unit of units) {
+      console.log(`\n=== Processing unit: ${unit.name} ===`);
+      if (!values["no-check"]) {
+        printDuplicates(unit.data);
       }
+      const data = sortData(removeDuplicates(unit.data));
+      await writeToFile(data, unit.name);
     }
 
     // Generate "all" preset combining all units
     console.log(`\n=== Processing all units combined ===`);
-    let allData = await loadAllUnitsData(resolvedDataPath);
+    let allData = units.flatMap((unit) => unit.data);
     allData = removeDuplicates(allData);
     allData = sortData(allData);
     await writeToFile(allData, "all");

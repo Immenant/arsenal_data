@@ -6,7 +6,9 @@
     "loadouts": "bun run --bun scripts/generate_loadouts.ts",
     "gen": "bun run arsenal -a && bun run loadouts",
     "extract": "bun run --bun scripts/extract_config.ts",
+    "migrate-arsenal-data": "bun run --bun scripts/migrate_arsenal_data.ts",
     "sort-data": "bun run --bun scripts/sort_data.ts",
+    "test": "bun test",
     "check": "oxlint --type-aware --type-check && oxfmt --check",
     "lint": "oxlint --type-aware --type-check --fix",
     "format": "oxfmt --write"
