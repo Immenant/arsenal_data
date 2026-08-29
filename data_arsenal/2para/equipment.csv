@@ -17,6 +17,18 @@ MineDetector
 rhs_ec200_sand_mag
 rhs_ec400_sand_mag
 SatchelCharge_Remote_Mag
+SCM_PVS31_C
+SCM_PVS31_C_LC
+SCM_PVS31_C_LC_WP
+SCM_PVS31_C_MC
+SCM_PVS31_C_MC_WP
+SCM_PVS31_C_WP
+SCM_PVS31_W
+SCM_PVS31_W_LC
+SCM_PVS31_W_LC_WP
+SCM_PVS31_W_MC
+SCM_PVS31_W_MC_WP
+SCM_PVS31_W_WP
 sps_black_hornet_01_Static_F
 TFAR_anprc148jem
 TFAR_anprc152
@@ -29,6 +41,5 @@ tsp_breach_package_mag
 tsp_breach_popper_mag
 tsp_breach_silhouette_mag
 tsp_breach_stick_mag
-UK3CB_BAF_HMNVS
 UK3CB_BAF_Javelin_CLU
 UK3CB_BAF_Soflam_Laserdesignator

@@ -3,9 +3,7 @@ ACE_VMH3
 ACE_VMM3
 launch_NLAW_F
 PJHQ_Launcher_NLAW
-SCOTTS_L85_GRIP1
-SCOTTS_L85_GRIP2
-Scotts_L85A3
+rhs_weap_maaws
 UK3CB_BAF_AT4_CS_AP_Launcher
 UK3CB_BAF_AT4_CS_AT_Launcher
 UK3CB_BAF_Javelin_Slung_Tube
