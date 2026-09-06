@@ -1,5 +1,6 @@
-import { readdir, stat } from "node:fs/promises";
+import { readdir } from "node:fs/promises";
 import * as path from "node:path";
+import { isClassnameDataFile, parseClassnameData, serializeClassnameData } from "./classname_data.ts";
 
 const repoRoot = path.resolve(import.meta.dir, "..");
 const dataArsenalDir = path.join(repoRoot, "data_arsenal");
@@ -23,24 +24,23 @@ function sortAlphabetically(values: string[]): string[] {
   return [...values].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
 }
 
-async function getJsonFilesUnder(dir: string): Promise<string[]> {
+async function getClassnameFilesUnder(dir: string): Promise<string[]> {
   const result: string[] = [];
 
-  const entries = await readdir(dir);
+  const entries = await readdir(dir, { withFileTypes: true });
   for (const entry of entries) {
-    const entryPath = path.join(dir, entry);
-    const entryStat = await stat(entryPath);
+    const entryPath = path.join(dir, entry.name);
 
-    if (entryStat.isDirectory()) {
-      const nestedEntries = await readdir(entryPath);
+    if (entry.isDirectory()) {
+      const nestedEntries = await readdir(entryPath, { withFileTypes: true });
       for (const nestedEntry of nestedEntries) {
-        if (!nestedEntry.toLowerCase().endsWith(".json")) continue;
-        result.push(path.join(entryPath, nestedEntry));
+        if (!nestedEntry.isFile() || !isClassnameDataFile(nestedEntry.name)) continue;
+        result.push(path.join(entryPath, nestedEntry.name));
       }
       continue;
     }
 
-    if (entryStat.isFile() && entry.toLowerCase().endsWith(".json")) {
+    if (entry.isFile() && isClassnameDataFile(entry.name)) {
       result.push(entryPath);
     }
   }
@@ -48,26 +48,15 @@ async function getJsonFilesUnder(dir: string): Promise<string[]> {
   return result;
 }
 
-async function processJsonFile(filePath: string): Promise<{ changed: boolean } | { skipped: true } | { failed: true; reason: string }> {
+async function processClassnameFile(filePath: string): Promise<{ changed: boolean } | { skipped: true } | { failed: true; reason: string }> {
   try {
     const exists = await Bun.file(filePath).exists();
     if (!exists) return { skipped: true };
 
     const originalText = await Bun.file(filePath).text();
 
-    let parsed: unknown;
-    try {
-      parsed = JSON.parse(originalText);
-    } catch (error) {
-      return { failed: true, reason: `Invalid JSON: ${formatError(error)}` };
-    }
-
-    if (!Array.isArray(parsed)) {
-      return { failed: true, reason: `Expected JSON array but got ${typeof parsed}` };
-    }
-
-    const asStrings = parsed.map((v) => String(v));
-    const duplicates = findDuplicates(asStrings);
+    const classnames = parseClassnameData(originalText, filePath);
+    const duplicates = findDuplicates(classnames);
     if (duplicates.length > 0) {
       console.warn(`[duplicates] ${filePath}: ${duplicates.length} duplicate values found`);
       for (const dup of duplicates) {
@@ -75,8 +64,8 @@ async function processJsonFile(filePath: string): Promise<{ changed: boolean } |
       }
     }
 
-    const uniqueSorted = sortAlphabetically(Array.from(new Set(asStrings)));
-    const nextText = JSON.stringify(uniqueSorted, null, 2);
+    const uniqueSorted = sortAlphabetically(Array.from(new Set(classnames)));
+    const nextText = serializeClassnameData(uniqueSorted, filePath);
 
     if (nextText === originalText) {
       return { changed: false };
@@ -98,9 +87,9 @@ if (import.meta.main) {
   let failed = 0;
 
   try {
-    const jsonFiles = await getJsonFilesUnder(dataArsenalDir);
-    for (const filePath of jsonFiles) {
-      const result = await processJsonFile(filePath);
+    const classnameFiles = await getClassnameFilesUnder(dataArsenalDir);
+    for (const filePath of classnameFiles) {
+      const result = await processClassnameFile(filePath);
 
       if ("skipped" in result) {
         skipped++;
@@ -123,4 +112,5 @@ if (import.meta.main) {
 
   const durationMs = Date.now() - started;
   console.log(`Processed ${processed} files (${changed} updated, ${skipped} skipped, ${failed} failed) in ${durationMs}ms`);
+  if (failed > 0) process.exitCode = 1;
 }

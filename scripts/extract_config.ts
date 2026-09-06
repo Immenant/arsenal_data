@@ -62,5 +62,5 @@ if (import.meta.main) {
 
   const filePath = args[0];
   const classes = extractClassNames(filePath);
-  console.log(JSON.stringify(classes, null, 2));
+  console.log(classes.join("\n"));
 }

@@ -11,7 +11,7 @@
   "ignorePatterns": ["package-lock.json", "pnpm-lock.yaml", "yarn.lock", "bun.lock", "bun.lockb", "/static/", "**/components/ui"],
   "overrides": [
     {
-      "files": ["data_arsenal/**/*.json", "data_loadouts/**/*.json", "all_classnames_2024-02-28/**/*.json", "archive_arsenal/**/*.json", "archive_loadouts/**/*.json"],
+      "files": ["data_loadouts/**/*.json", "all_classnames_2024-02-28/**/*.json", "archive_loadouts/**/*.json"],
       "options": {
         "printWidth": 1
       }
