@@ -1,4 +1,4 @@
-"Type: jac | Last Updated: 2026-09-27";
+"Type: jac | Last Updated: 2026-10-18";
 [this, false] call ace_dragging_fnc_setDraggable;
 [this, false] call ace_dragging_fnc_setCarryable;
 [this, -1] call ace_cargo_fnc_setSize;
